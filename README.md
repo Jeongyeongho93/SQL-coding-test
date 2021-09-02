@@ -103,3 +103,52 @@ count(ANIMAL_TYPE)
 from ANIMAL_INS
 group by 1
 order by ANIMAL_TYPE
+
+
+
+
+Requirement meaning below
+The query that measures the each names has been counted in the data
+
+-ORACLE
+1.
+select name, count(name) from animal_ins
+group by name
+having count(name) > 1
+order by name asc
+2.
+with new_table as 
+(select name, count(name) as count from animal_ins
+where name is not null group by name order by name asc)
+select * from new_table
+where count > 0
+and name in ('Lucy', 'Raven')
+
+-MYSQL
+1. 
+select name, count(name) from animal_ins
+group by name
+having count(name) >= 2
+order by name asc
+
+2.
+with new_table as 
+(select name, count(name) as count from animal_ins where name is not null group by name order by name)
+select * from new_table
+where count > 1
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
